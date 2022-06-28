@@ -1,6 +1,7 @@
-import { RouteComponentProps } from 'react-router-dom';
+import { Location } from 'react-router-dom';
+import _ from 'lodash';
 
-type RRLocation = RouteComponentProps['location'] & { [key: string]: any };
+type RRLocation = Location & { [key: string]: any };
 type LiteLocation = Pick<RRLocation, Exclude<keyof RRLocation, 'state'>>;
 
 /**
@@ -22,4 +23,4 @@ export const hasBeenPrevented = (location: RRLocation) =>
   prevented.some(preventedLocation => isEqual(location, preventedLocation));
 
 export const shouldPrevent = (location: RRLocation): boolean =>
-  Boolean(location.state && location.state.preventLastLocation);
+  Boolean(_.get(location, 'state.preventLastLocation'));

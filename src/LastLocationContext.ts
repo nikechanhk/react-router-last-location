@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Location } from 'react-router-dom';
 
-export type LastLocationType = null | RouteComponentProps['location'];
+export type LastLocationType = null | Location;
 
 const LastLocationContext = createContext<LastLocationType>(null);
 

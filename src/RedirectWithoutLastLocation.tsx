@@ -1,23 +1,11 @@
 import * as React from 'react';
-import { Redirect, RedirectProps } from 'react-router-dom';
-import { createLocation } from 'history';
+import { Navigate, NavigateProps } from 'react-router-dom';
 
-const RedirectWithoutLastLocation: React.FC<RedirectProps> = ({ to, ...rest }) => {
-  let finalTo;
+const RedirectWithoutLastLocation: React.FC<NavigateProps> = (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { to, state } = props;
 
-  if (typeof to === 'string') {
-    finalTo = createLocation(to, { preventLastLocation: true });
-  } else {
-    finalTo = {
-      ...to,
-      state: {
-        preventLastLocation: true,
-        ...to.state,
-      },
-    };
-  }
-
-  return <Redirect {...rest} to={finalTo} />;
+  return <Navigate {...props} state={typeof to === 'string' ? { preventLastLocation: true } : { preventLastLocation: true, ...state }} replace />;
 };
 
 export default RedirectWithoutLastLocation;
